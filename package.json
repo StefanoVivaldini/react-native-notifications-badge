@@ -1,6 +1,6 @@
 {
   "name": "react-native-notifications-badge",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A simple Turbo Module to manage notifications badge count",
   "main": "./lib/module/index.js",
   "types": "./lib/typescript/src/index.d.ts",
