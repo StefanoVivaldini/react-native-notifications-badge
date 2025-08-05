@@ -8,7 +8,6 @@ export interface Spec extends TurboModule {
 }
 
 const NativeNotificationsBadge =
-    TurboModuleRegistry.getEnforcing<Spec>('NotificationsBadge');
+  TurboModuleRegistry.getEnforcing<Spec>('NotificationsBadge');
 
 export default NativeNotificationsBadge;
-
