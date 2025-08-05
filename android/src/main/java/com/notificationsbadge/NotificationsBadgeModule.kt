@@ -17,62 +17,20 @@ class NotificationsBadgeModule(reactContext: ReactApplicationContext) :
 
   companion object {
     const val NAME = "NotificationsBadge"
-    const val NOTIFICATION_ID = 999
-    const val CHANNEL_ID = "notifications_badge_channel"
   }
-
-  private var badgeCount = 0
 
   override fun getName(): String = NAME
 
   override fun setBadge(count: Double) {
-    badgeCount = count.toInt()
-    val context = reactApplicationContext
-    val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-
-    // Create notification channel (Android 8+)
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-      val channel = NotificationChannel(
-        CHANNEL_ID,
-        "Badge Notifications",
-        NotificationManager.IMPORTANCE_LOW
-      ).apply {
-        setShowBadge(true)
-        enableLights(false)
-        enableVibration(false)
-        setSound(null, null)
-        description = "Notification used to trigger badge count"
-      }
-      notificationManager.createNotificationChannel(channel)
-    }
-
-    val builder = NotificationCompat.Builder(context, CHANNEL_ID)
-      .setContentTitle("a")
-      .setContentText("a")
-      .setSmallIcon(android.R.drawable.ic_dialog_info)
-      .setAutoCancel(true)
-      .setOnlyAlertOnce(true)
-      .setPriority(NotificationCompat.PRIORITY_LOW)
-      .setVisibility(NotificationCompat.VISIBILITY_PRIVATE)
-      .setNumber(badgeCount)
-
-    if (badgeCount > 0) {
-      notificationManager.notify(NOTIFICATION_ID, builder.build())
-      ShortcutBadger.applyCount(context, badgeCount)
-    } else {
-      clearBadge()
-    }
+    // No-op on Android
   }
 
   override fun clearBadge() {
-    val context = reactApplicationContext
-    badgeCount = 0
-    val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-    notificationManager.cancel(NOTIFICATION_ID)
-    ShortcutBadger.removeCount(context)
+    // No-op on Android
   }
 
   override fun getBadge(promise: Promise) {
-    promise.resolve(badgeCount)
+    // Always return 0 or null
+    promise.resolve(0)
   }
 }
